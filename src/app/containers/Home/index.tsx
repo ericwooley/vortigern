@@ -1,14 +1,14 @@
-import * as React from 'react';
-const s = require('./style.css');
+import * as React from 'react'
 
 class Home extends React.Component<any, any> {
   public render() {
+    const s = require('./style.css')
     return (
       <div className={s.home}>
         <img src={require('./barbar.png')} />
-        <p>Hello!</p>
+        <p>Hello! Steve</p>
       </div>
-    );
+    )
   }
 }
 

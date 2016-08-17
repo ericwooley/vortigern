@@ -1,15 +1,15 @@
 /** Type Definitions */
 export interface IStars {
-  isFetching?: boolean;
-  count?: number;
-  error?: boolean;
-  message?: any;
+  isFetching?: boolean
+  count?: number
+  error?: boolean
+  message?: any
 }
 
 export interface IStarsAction {
-  type: string;
+  type: string
   payload?: {
-    count?: number;
-    message?: any;
-  };
+    count?: number
+    message?: any
+  }
 }

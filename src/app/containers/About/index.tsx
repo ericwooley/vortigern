@@ -1,5 +1,5 @@
-import * as React from 'react';
-const s = require('./style.css');
+import * as React from 'react'
+const s = require('./style.css')
 
 class About extends React.Component<any, any> {
   public render() {
@@ -7,7 +7,7 @@ class About extends React.Component<any, any> {
       <div className={s.about}>
         <h4>About</h4>
       </div>
-    );
+    )
   }
 }
 
