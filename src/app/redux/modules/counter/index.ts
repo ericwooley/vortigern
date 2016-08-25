@@ -1,42 +1,21 @@
-import { ICounter, ICounterAction } from '../../../models/counter'
+import BaseReducer from '../BaseReducer'
 
-/** Action Types */
-export const INCREMENT: string = 'counter/INCREMENT'
-export const DECREMENT: string = 'counter/DECREMENT'
-
-/** Counter: Initial State */
-const initialState: ICounter = {
-  count: 0,
+export interface ICounterState {
+  count: number
 }
-
-/** Reducer: CounterReducer */
-export function counterReducer(state = initialState, action?: ICounterAction) {
-  switch (action.type) {
-    case INCREMENT:
-      return {
-        count: state.count + 1,
-      }
-
-    case DECREMENT:
-      return {
-        count: ((state.count - 1 > 0) ? state.count - 1 : 0),
-      }
-
-    default:
-      return state
+export default class CounterReducer extends BaseReducer<ICounterState> {
+  protected ID = 'counter'
+  protected defaultState: ICounterState = {
+    count: 0
   }
-}
-
-/** Action Creator: Increments the Counter */
-export function increment(): ICounterAction {
-  return {
-    type: INCREMENT,
+  public increment (payload?: void, state?: ICounterState): ICounterState {
+    return Object.assign({}, state, {
+      count: state.count + 1
+    })
   }
-}
-
-/** Action Creator: Decrements the Counter */
-export function decrement(): ICounterAction {
-  return {
-    type: DECREMENT,
+  public decrement (payload?: void, state?: ICounterState): ICounterState {
+    return Object.assign({}, state, {
+      count: state.count + 1
+    })
   }
 }

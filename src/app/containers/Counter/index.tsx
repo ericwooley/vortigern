@@ -1,42 +1,36 @@
 import * as React from 'react'
-import { increment, decrement } from '../../redux/modules/counter/'
-import { ICounter } from '../../models/counter'
+import {reducers} from '../../redux/reducers.ts'
+import { IState } from '../../redux/reducers.ts'
 const { connect } = require('react-redux')
 const s = require('./style.css')
 
 interface IProps {
-  counter: ICounter
-  increment: Redux.ActionCreator
-  decrement: Redux.ActionCreator
+  count: number
 }
 
 @connect(
-  state => ({ counter: state.counter }),
-  dispatch => ({
-    decrement: () => dispatch(decrement()),
-    increment: () => dispatch(increment()),
-  })
+  (state: IState) => ({ count: state.counter.count })
 )
 class Counter extends React.Component<IProps, void> {
 
   public render() {
-    const { increment, decrement, counter } = this.props
+    const { count } = this.props
 
     return (
       <div className={s.counter}>
         <h4>Counter Example</h4>
         <button
           name="incBtn"
-          onClick={increment}>
+          onClick={reducers.counterReducer.increment}>
             INCREMENT
         </button>
         <button
           name="decBtn"
-          onClick={decrement}
-          disabled={counter.count <= 0}>
+          onClick={reducers.counterReducer.decrement}
+          disabled={count <= 0}>
             DECREMENT
         </button>
-        <p>{counter.count}</p>
+        <p>{count}</p>
       </div>
     )
   }

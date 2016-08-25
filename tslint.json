@@ -10,6 +10,7 @@
     "object-literal-sort-keys": false,
     "no-shadowed-variable": false,
     "no-console": [true],
-    "semicolon": [true, "never"]
+    "semicolon": [true, "never"],
+    "trailing-comma": ["never", {"multiline": "false", "singleline": "never"}]
   }
 }

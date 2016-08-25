@@ -1,46 +1,29 @@
 import { expect } from 'chai'
-import * as counter from './'
-import { ICounter, ICounterAction } from '../../../models/counter'
-
+import CounterReducer from './'
+import BaseReducer from '../BaseReducer'
+import { createStore, combineReducers } from 'redux'
 /** Module */
 describe('Counter Module', () => {
-
-  /** Actions */
-  describe('Actions', () => {
-    describe('Increment', () => {
-      it('has the correct type', () => {
-        const action: ICounterAction = counter.increment()
-        expect(action.type).to.equal(counter.INCREMENT)
-      })
-    })
-
-    describe('Decrement', () => {
-      it('has the correct type', () => {
-        const action: ICounterAction = counter.decrement()
-        expect(action.type).to.equal(counter.DECREMENT)
-      })
-    })
-  })
-
+  let store
   /** Reducer */
   describe('Reducer', () => {
-
-    let state: ICounter = { count: 10 }
-
+    let counterReducer: CounterReducer
+    beforeEach(() => {
+      counterReducer = new CounterReducer()
+      console.log('counterReducer', counterReducer)
+      store = createStore(combineReducers({
+        counter: counterReducer.reducer
+      }))
+      BaseReducer.setStore(store)
+    })
     it('handles action of type INCREMENT', () => {
-      const action: ICounterAction = { type: counter.INCREMENT }
-      expect(counter.counterReducer(state, action)).to.be.eql({ count: state.count + 1 })
+      counterReducer.increment()
+      expect(store.getState().counter.count).to.be.eql(1)
     })
 
     it('handles action of type DECREMENT', () => {
-      const action: ICounterAction = { type: counter.DECREMENT }
-      expect(counter.counterReducer(state, action)).to.be.eql({ count: state.count - 1 })
+      counterReducer.decrement()
+      expect(store.getState().counter.count).to.be.eql(1)
     })
-
-    it('handles actions with unknown type', function() {
-      expect(counter.counterReducer(state, { type: '' })).to.be.eql({ count: state.count })
-    })
-
   })
-
 })
