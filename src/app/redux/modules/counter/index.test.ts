@@ -8,7 +8,6 @@ describe('Counter Module', () => {
   /** Reducer */
   describe('Reducer', () => {
     beforeEach(() => {
-      console.log('counterReducer', counterReducer)
       store = createStore(combineReducers({
         counter: counterReducer.reducer
       }))

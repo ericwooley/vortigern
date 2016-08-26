@@ -1,6 +1,5 @@
 import * as React from 'react'
-import {reducers} from '../../redux/reducers.ts'
-import { IState } from '../../redux/reducers.ts'
+import {reducers, IState} from '../../redux/reducers.ts'
 const { connect } = require('react-redux')
 const s = require('./style.css')
 

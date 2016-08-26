@@ -1,83 +1,59 @@
-import { IStars, IStarsAction } from '../../../models/stars'
+import makeReducer from '../BaseReducer'
 
-/** Action Types */
-export const GET_REQUEST: string = 'stars/GET_REQUEST'
-export const GET_SUCCESS: string = 'stars/GET_SUCCESS'
-export const GET_FAILURE: string = 'stars/GET_FAILURE'
+/** Type Definitions */
+export interface IStarsState {
+  isFetching?: boolean
+  count?: number
+  error?: boolean
+  message?: any
+}
 
 /** Initial State */
-const initialState: IStars = {
+const initialState: IStarsState = {
   isFetching: false,
 }
-
-/** Reducer */
-export function starsReducer(state = initialState, action: IStarsAction) {
-  switch (action.type) {
-    case GET_REQUEST:
-      return Object.assign({}, state, {
-        isFetching: true,
+const actions = {
+  setFetching: (payload: boolean, state?: IStarsState): IStarsState => {
+    return Object.assign({}, state, {
+        isFetching: payload,
       })
-
-    case GET_SUCCESS:
-      return Object.assign({}, state, {
+  },
+  setStars: (starCount: number, state?: IStarsState): IStarsState  => {
+    return Object.assign({}, state, {
+      isFetching: false,
+      count: starCount,
+    })
+  },
+  setStarsFailure: (message: string, state?: IStarsState): IStarsState  => {
+    return Object.assign({}, state, {
         isFetching: false,
-        count: action.payload.count,
-      })
-
-    case GET_FAILURE:
-      return Object.assign({}, state, {
-        isFetching: false,
-        message: action.payload.message,
+        message,
         error: true,
       })
-
-    default:
-      return state
   }
 }
 
-/** Async Action Creator */
-export function getStars(): Redux.Dispatch {
-  return dispatch => {
-    dispatch(starsRequest())
-
-    return fetch('https://api.github.com/repos/barbar/vortigern')
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-            .then(res => dispatch(starsSuccess(res.stargazers_count)))
-        } else {
-          return res.json()
-            .then(res => dispatch(starsFailure(res)))
-        }
-      })
-      .catch(err => dispatch(starsFailure(err)))
+const asyncActions = {
+  getStars: (payload: void, syncActions: typeof actions) => {
+      syncActions.setFetching(true)
+      return fetch('https://api.github.com/repos/barbar/vortigern')
+        .then(res => {
+          if (res.ok) {
+            return res.json()
+              .then(res => {
+                return syncActions.setStars(res.stargazers_count)
+              })
+          } else {
+            return res.json()
+              .then(res => {
+                return syncActions.setStarsFailure(res)
+              })
+          }
+        })
+        .catch(err => {
+          return syncActions.setStarsFailure(err)
+        })
   }
 }
 
-/** Action Creator */
-export function starsRequest(): IStarsAction {
-  return {
-    type: GET_REQUEST,
-  }
-}
-
-/** Action Creator */
-export function starsSuccess(count: number): IStarsAction {
-  return {
-    type: GET_SUCCESS,
-    payload: {
-      count,
-    },
-  }
-}
-
-/** Action Creator */
-export function starsFailure(message: any): IStarsAction {
-  return {
-    type: GET_FAILURE,
-    payload: {
-      message,
-    },
-  }
-}
+export default makeReducer('stars', initialState, actions, asyncActions)

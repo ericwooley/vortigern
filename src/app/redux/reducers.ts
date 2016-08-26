@@ -1,19 +1,21 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import counterReducer, {ICounterState} from './modules/counter'
-import { starsReducer } from './modules/stars'
+import starsReducer, {IStarsState} from './modules/stars'
 const { reducer } = require('redux-connect')
 export const reducers = {
-  counterReducer: counterReducer
+  counterReducer: counterReducer,
+  starsReducer: starsReducer
 }
 export interface IState {
-  counter: ICounterState
+  counter: ICounterState,
+  stars: IStarsState
 }
 
 const rootReducer: Redux.Reducer = combineReducers({
   routing: routerReducer,
-  counter: reducers.counterReducer.reducer,
-  stars: starsReducer,
+  counter: counterReducer.reducer,
+  stars: starsReducer.reducer,
   reduxAsyncConnect: reducer
 })
 

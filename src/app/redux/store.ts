@@ -34,7 +34,6 @@ export function configureStore(history, initialState?: any): Redux.Store {
       store.replaceReducer((require('./reducers')))
     })
   }
-  console.log('this happened')
   setStore(store)
   return store
 }

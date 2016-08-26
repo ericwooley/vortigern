@@ -1,73 +1,73 @@
-import { expect } from 'chai'
-import { fetchMock, mockStore } from '../../../helpers/TestHelper.tsx'
-import * as stars from './'
-import { IStarsAction } from '../../../models/stars'
+// import { expect } from 'chai'
+// import { fetchMock, mockStore } from '../../../helpers/TestHelper.tsx'
+// import * as stars from './'
+// import { IStarsAction } from '../../../models/stars'
 
-/** Mock Data */
-const githubResponse = {
-  stargazers_count: 999,
-}
+// /** Mock Data */
+// const githubResponse = {
+//   stargazers_count: 999,
+// }
 
-const errResponse = {
-  message: 'ERROR :-O',
-}
+// const errResponse = {
+//   message: 'ERROR :-O',
+// }
 
-/** Stargazers Module */
-describe('Stars Module', () => {
+// /** Stargazers Module */
+// describe('Stars Module', () => {
 
-  /** Action Creators */
-  describe('Action Creators', () => {
+//   /** Action Creators */
+//   describe('Action Creators', () => {
 
-    describe('Get Stars (Async)', () => {
+//     describe('Get Stars (Async)', () => {
 
-      afterEach(() => {
-        fetchMock.restore()
-      })
+//       afterEach(() => {
+//         fetchMock.restore()
+//       })
 
-      /** 200 */
-      it('dispatches Request and Success Actions on OK requests', (done) => {
+//       /** 200 */
+//       it('dispatches Request and Success Actions on OK requests', (done) => {
 
-        fetchMock.mock('https://api.github.com/repos/barbar/vortigern', {
-          status: 200,
-          body: githubResponse,
-        })
+//         fetchMock.mock('https://api.github.com/repos/barbar/vortigern', {
+//           status: 200,
+//           body: githubResponse,
+//         })
 
-        const expectedActions: IStarsAction[] = [
-          { type: stars.GET_REQUEST },
-          { type: stars.GET_SUCCESS, payload: { count: githubResponse.stargazers_count } },
-        ]
+//         const expectedActions: IStarsAction[] = [
+//           { type: stars.GET_REQUEST },
+//           { type: stars.GET_SUCCESS, payload: { count: githubResponse.stargazers_count } },
+//         ]
 
-        const store = mockStore({})
+//         const store = mockStore({})
 
-        store.dispatch(stars.getStars())
-          .then(() => expect(store.getActions()).to.eql(expectedActions))
-          .then(() => done())
-          .catch(err => done(err))
-      })
+//         store.dispatch(stars.getStars())
+//           .then(() => expect(store.getActions()).to.eql(expectedActions))
+//           .then(() => done())
+//           .catch(err => done(err))
+//       })
 
-      /** 400 */
-      it('dispatches Failure on failed requests', (done) => {
+//       /** 400 */
+//       it('dispatches Failure on failed requests', (done) => {
 
-        fetchMock.mock('https://api.github.com/repos/barbar/vortigern', {
-          status: 400,
-          body: errResponse,
-        })
+//         fetchMock.mock('https://api.github.com/repos/barbar/vortigern', {
+//           status: 400,
+//           body: errResponse,
+//         })
 
-        const expectedActions: IStarsAction[] = [
-          { type: stars.GET_REQUEST },
-          { type: stars.GET_FAILURE, payload: { message: errResponse } },
-        ]
+//         const expectedActions: IStarsAction[] = [
+//           { type: stars.GET_REQUEST },
+//           { type: stars.GET_FAILURE, payload: { message: errResponse } },
+//         ]
 
-        const store = mockStore({})
+//         const store = mockStore({})
 
-        store.dispatch(stars.getStars())
-          .then(() => expect(store.getActions()).to.eql(expectedActions))
-          .then(() => done())
-          .catch(err => done(err))
-      })
+//         store.dispatch(stars.getStars())
+//           .then(() => expect(store.getActions()).to.eql(expectedActions))
+//           .then(() => done())
+//           .catch(err => done(err))
+//       })
 
-    })
+//     })
 
-  })
+//   })
 
-})
+// })
