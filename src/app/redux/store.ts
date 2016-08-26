@@ -4,7 +4,7 @@ import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 const createLogger = require('redux-logger')
-import BaseReducer from './modules/BaseReducer'
+import {setStore} from './modules/BaseReducer'
 
 export function configureStore(history, initialState?: any): Redux.Store {
 
@@ -34,6 +34,7 @@ export function configureStore(history, initialState?: any): Redux.Store {
       store.replaceReducer((require('./reducers')))
     })
   }
-  BaseReducer.setStore(store)
+  console.log('this happened')
+  setStore(store)
   return store
 }
