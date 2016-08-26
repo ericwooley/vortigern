@@ -11,7 +11,6 @@ export interface IState {
   counter: ICounterState,
   stars: IStarsState
 }
-
 const rootReducer: Redux.Reducer = combineReducers({
   routing: routerReducer,
   counter: counterReducer.reducer,

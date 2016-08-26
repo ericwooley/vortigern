@@ -12,5 +12,6 @@
     "no-console": [true],
     "semicolon": [true, "never"],
     "trailing-comma": ["never", {"multiline": "false", "singleline": "never"}]
-  }
+  },
+  "exclude": "blueprints/**/*"
 }

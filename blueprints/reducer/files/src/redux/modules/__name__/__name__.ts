@@ -1,42 +1,48 @@
-// import { ICounter, ICounterAction } from '../../../models/counter'
+import makeReducer from '../BaseReducer'
 
-// /** Action Types */
-// export const INCREMENT: string = 'counter/INCREMENT'
-// export const DECREMENT: string = 'counter/DECREMENT'
+/** Type Definitions */
+export interface I<%= pascalEntityName %>State {
+  example: boolean
+}
 
-// /** Counter: Initial State */
-// const initialState: ICounter = {
-//   count: 0,
-// }
+/** Initial State */
+const initialState: I<%= pascalEntityName %>State = {
+  example: true
+}
 
-// /** Reducer: CounterReducer */
-// export function counterReducer(state = initialState, action?: ICounterAction) {
-//   switch (action.type) {
-//     case INCREMENT:
-//       return {
-//         count: state.count + 1,
-//       }
+/** Actions
+ * Accepts a payload, and the current reducer substate
+ * must return a new version of the state.
+ */
 
-//     case DECREMENT:
-//       return {
-//         count: ((state.count - 1 > 0) ? state.count - 1 : 0),
-//       }
+const actions = {
+  setMathExample: (payload: boolean, state?: I<%= pascalEntityName %>State): I<%= pascalEntityName %>State => {
+    return Object.assign({}, state, {
+        example: payload,
+      })
+  }
+}
 
-//     default:
-//       return state
-//   }
-// }
+/** Async Actions
+ * Must return a promise.
+ * Accepts a payload, and the syncActions
+ */
 
-// /** Action Creator: Increments the Counter */
-// export function increment(): ICounterAction {
-//   return {
-//     type: INCREMENT,
-//   }
-// }
+const asyncActions = {
+  getStars: (payload: boolean, syncActions: typeof actions) => {
+      syncActions.setMathExample(payload)
+      return new Promise ((resolve, reject) => {
+        setTimeout(() => {
+          if (Math.random() > .5) {
+            resolve()
+          } else {
+            reject()
+          }
+        }, 50)
+      })
+      .then(() => syncActions.setMathExample(true))
+      .catch(() => syncActions.setMathExample(false))
+  }
+}
 
-// /** Action Creator: Decrements the Counter */
-// export function decrement(): ICounterAction {
-//   return {
-//     type: DECREMENT,
-//   }
-// }
+export default makeReducer('<%= pascalEntityName %>', initialState, actions, asyncActions)

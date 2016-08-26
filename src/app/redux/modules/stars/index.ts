@@ -24,17 +24,17 @@ const actions = {
       count: starCount,
     })
   },
-  setStarsFailure: (message: string, state?: IStarsState): IStarsState  => {
+  setStarsFailure: (error: Error, state?: IStarsState): IStarsState  => {
     return Object.assign({}, state, {
         isFetching: false,
-        message,
+        message: error.message,
         error: true,
       })
   }
 }
 
 const asyncActions = {
-  getStars: (payload: void, syncActions: typeof actions) => {
+  getStars: (payload: void, syncActions?: typeof actions) => {
       syncActions.setFetching(true)
       return fetch('https://api.github.com/repos/barbar/vortigern')
         .then(res => {

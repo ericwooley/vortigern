@@ -6,6 +6,7 @@
 interface Window {
   devToolsExtension?: () => any;
   __INITIAL_STATE__?: any;
+  __karma__?: any;
 }
 
 interface ObjectConstructor {

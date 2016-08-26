@@ -4,20 +4,16 @@ import { mount } from 'enzyme'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from '../redux/reducers'
-
+import {IState} from '../redux/reducers.ts'
+import {setStore} from '../redux/modules/BaseReducer.ts'
+import {configureStore as trueConfig} from '../redux/store.ts'
+const { browserHistory } = require('react-router')
 const fetchMock = require('fetch-mock')
-
-/** Redux Mock Store Configuration */
-import thunk from 'redux-thunk'
-
-const configureStore = require('redux-mock-store')
-const middlewares = [thunk]
-const mockStore = configureStore(middlewares)
 
 /** Render Component */
 function renderComponent(ComponentClass, state?, props?) {
   const store: Redux.Store = createStore(rootReducer, state)
-
+  setStore(store)
   return mount (
     <Provider store={store}>
       <ComponentClass {...props} />
@@ -25,4 +21,14 @@ function renderComponent(ComponentClass, state?, props?) {
   )
 }
 
-export { mockStore, fetchMock, renderComponent }
+function configureStore (initialState = {}) {
+  const store = trueConfig(browserHistory, initialState)
+  setStore(store)
+  return store
+}
+
+function stateFromStore (store: any): IState {
+  return (store.getState() as IState)
+}
+
+export { configureStore, fetchMock, renderComponent, stateFromStore }

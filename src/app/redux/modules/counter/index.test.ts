@@ -1,26 +1,26 @@
 import { expect } from 'chai'
 import counterReducer from './'
-import {setStore} from '../BaseReducer'
-import { createStore, combineReducers } from 'redux'
+import {configureStore} from '../../../helpers/TestHelper.tsx'
 /** Module */
 describe('Counter Module', () => {
   let store
   /** Reducer */
   describe('Reducer', () => {
     beforeEach(() => {
-      store = createStore(combineReducers({
-        counter: counterReducer.reducer
-      }))
-      setStore(store)
+      store = configureStore({
+        counter: {
+          count: 10
+        }
+      })
     })
     it('handles action of type INCREMENT', () => {
       counterReducer.increment()
-      expect(store.getState().counter.count).to.be.eql(1)
+      expect(store.getState().counter.count).to.be.eql(11)
     })
 
     it('handles action of type DECREMENT', () => {
       counterReducer.decrement()
-      expect(store.getState().counter.count).to.be.eql(1)
+      expect(store.getState().counter.count).to.be.eql(9)
     })
   })
 })

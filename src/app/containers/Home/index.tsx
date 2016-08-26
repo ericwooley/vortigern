@@ -6,7 +6,7 @@ class Home extends React.Component<any, any> {
     return (
       <div className={s.home}>
         <img src={require('./barbar.png')} />
-        <p>Hello! Steve</p>
+        <p>Hello!</p>
       </div>
     )
   }

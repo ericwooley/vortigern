@@ -105,7 +105,7 @@ module.exports = function (config) {
       },
 
       tslint: {
-        failOnHint: true
+        failOnHint: false
       },
 
       externals: {
@@ -120,7 +120,7 @@ module.exports = function (config) {
         new webpack.DefinePlugin({
           'process.env': {
             BROWSER: JSON.stringify(true),
-            NODE_ENV: JSON.stringify('development')
+            NODE_ENV: JSON.stringify('test')
           }
         })
       ]

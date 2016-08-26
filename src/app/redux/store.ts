@@ -5,7 +5,6 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 const createLogger = require('redux-logger')
 import {setStore} from './modules/BaseReducer'
-
 export function configureStore(history, initialState?: any): Redux.Store {
 
   let middlewares: any[] = [
@@ -14,7 +13,7 @@ export function configureStore(history, initialState?: any): Redux.Store {
   ]
 
   /** Add Only Dev. Middlewares */
-  if (appConfig.env !== 'production' && process.env.BROWSER) {
+  if ((appConfig.env !== 'production' && appConfig.env !== 'test') && process.env.BROWSER) {
     const logger = createLogger()
     middlewares.push(logger)
   }
