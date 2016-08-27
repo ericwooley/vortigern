@@ -5,7 +5,7 @@ import {stateFromStore, fetchMock, configureStore} from '../../../helpers/TestHe
 
 /** Module */
 describe('<%= pascalEntityName %> Module', () => {
-  let store
+  let store: Redux.Store
   /** Reducer */
   describe('Actions', () => {
     beforeEach(() => {
