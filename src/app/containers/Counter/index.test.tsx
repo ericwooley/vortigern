@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { renderComponent } from '../../helpers/TestHelper'
 import { Counter } from './index'
+import * as Enzyme from 'enzyme'
 
 /** Mock App. State */
 const state: Object = {
@@ -9,7 +10,7 @@ const state: Object = {
 
 describe('<Counter />', () => {
 
-  let component
+  let component: Enzyme.ReactWrapper<any, any>
 
   beforeEach(() => {
     component = renderComponent(Counter, state)

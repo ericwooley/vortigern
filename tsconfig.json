@@ -8,7 +8,8 @@
     "inlineSources": false,
     "experimentalDecorators": true,
     "jsx": "react",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules",

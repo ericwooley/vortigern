@@ -11,7 +11,7 @@ const { browserHistory } = require('react-router')
 const fetchMock = require('fetch-mock')
 
 /** Render Component */
-function renderComponent(ComponentClass, state?, props?) {
+function renderComponent(ComponentClass: any, state?: any, props?: any) {
   const store: Redux.Store = createStore(rootReducer, state)
   setStore(store)
   return mount (

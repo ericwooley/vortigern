@@ -4,8 +4,8 @@ import counterReducer, {ICounterState} from './modules/counter'
 import starsReducer, {IStarsState} from './modules/stars'
 const { reducer } = require('redux-connect')
 export const reducers = {
-  counterReducer: counterReducer,
-  starsReducer: starsReducer
+  counterReducer,
+  starsReducer
 }
 export interface IState {
   counter: ICounterState,
