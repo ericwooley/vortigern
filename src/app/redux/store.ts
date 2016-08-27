@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 const createLogger = require('redux-logger')
 import {setStore} from './modules/BaseReducer'
-export function configureStore(history, initialState?: any): Redux.Store {
+export function configureStore(history: any, initialState?: any): Redux.Store {
 
   let middlewares: any[] = [
     routerMiddleware(history),
@@ -23,7 +23,7 @@ export function configureStore(history, initialState?: any): Redux.Store {
     appConfig.env === 'development' &&
     typeof window === 'object' &&
     typeof window.devToolsExtension !== 'undefined'
-      ? window.devToolsExtension() : f => f
+      ? window.devToolsExtension() : (f: any) => f
   )(createStore)
 
   const store: Redux.Store = finalCreateStore(rootReducer, initialState)

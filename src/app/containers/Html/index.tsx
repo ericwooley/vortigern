@@ -2,17 +2,19 @@ import * as React from 'react'
 import * as Helmet from 'react-helmet'
 
 interface IHtmlProps {
-  manifest?: Object
+  manifest?: {
+    [prop: string]: any
+  }
   markup?: string
   store?: Redux.Store
 }
 
 class Html extends React.Component<IHtmlProps, {}> {
-  private resolve(files) {
-    return files.map((src) => {
+  private resolve(files: any) {
+    return files.map((src: any) => {
       if (!this.props.manifest[src]) { return }
       return '/public/' + this.props.manifest[src]
-    }).filter((file) => file !== undefined)
+    }).filter((file: any) => file !== undefined)
   }
 
   public render() {
@@ -20,12 +22,12 @@ class Html extends React.Component<IHtmlProps, {}> {
     const { markup, store } = this.props
 
     const styles = this.resolve(['vendor.css', 'app.css'])
-    const renderStyles = styles.map((src, i) =>
+    const renderStyles = styles.map((src: any, i: number) =>
       <link key={i} rel="stylesheet" type="text/css" href={src} />
     )
 
     const scripts = this.resolve(['vendor.js', 'app.js'])
-    const renderScripts = scripts.map((src, i) =>
+    const renderScripts = scripts.map((src: any, i: number) =>
       <script src={src} key={i}></script>
     )
 

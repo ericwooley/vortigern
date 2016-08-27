@@ -3,7 +3,7 @@ import counterReducer from './'
 import {configureStore} from '../../../helpers/TestHelper.tsx'
 /** Module */
 describe('Counter Module', () => {
-  let store
+  let store: Redux.Store
   /** Reducer */
   describe('Reducer', () => {
     beforeEach(() => {

@@ -50,7 +50,7 @@ app.use(favicon(path.join(__dirname, '../src/favicon.ico')))
 
 app.use('/public', express.static(path.join(__dirname, '../build/public')))
 
-app.get('*', (req, res) => {
+app.get('*', (req: any, res: any) => {
   const location = req.url
   const memoryHistory = createMemoryHistory(req.originalUrl)
   const store = configureStore(memoryHistory)
@@ -74,7 +74,7 @@ app.get('*', (req, res) => {
           res.status(200).send(renderHTML(markup))
         })
 
-        function renderHTML(markup) {
+        function renderHTML(markup: any) {
           const html = ReactDOMServer.renderToString(
             <Html markup={markup} manifest={manifest} store={store} />
           )
@@ -87,7 +87,7 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(appConfig.port, appConfig.host, err => {
+app.listen(appConfig.port, appConfig.host, (err: string) => {
   if (err) {
     console.error(Chalk.bgRed(err))
   } else {

@@ -21,7 +21,7 @@ export default function makeReducer
     const newSyncActions: T & IReducer = Object.assign({}, Actions)
     const newAsyncActions: V = Object.assign({}, AsyncActions)
     Object.keys(Actions).forEach((key) => {
-      newSyncActions[key] = (payload) => {
+      ((newSyncActions as any)[key]) = (payload: any) => {
         if (!store) {
           throw new Error('No store has been set')
         }
@@ -30,27 +30,27 @@ export default function makeReducer
     })
     if (AsyncActions) {
       Object.keys(AsyncActions).forEach((key) => {
-        if (Actions[key]) {
+        if ((Actions as any)[key]) {
           throw new Error('You cannot have a Action and Async Action with the same name: ' + key)
         }
-        newAsyncActions[key] = (payload) => {
+        (newAsyncActions as any)[key] = (payload: any) => {
           if (!store) {
             throw new Error('No store has been set')
           }
-          return store.dispatch((dispatch) => {
-            return AsyncActions[key](payload, newSyncActions)
+          return store.dispatch((dispatch: Function) => {
+            return (AsyncActions as any)[key](payload, newSyncActions)
           })
         }
       })
     }
     const baseReducer = {
-      reducer: (state: ISubState, action) => {
+      reducer: (state: ISubState, action: IAction<any>) => {
         state = state || defaultState
         /* tslint:disable */
         // Linting is disabled because there is no other way to do this
         const [ActionID, actionMethod] = action.type.split('/')
-        if (ActionID === ID && newSyncActions[actionMethod]) {
-          return Actions[actionMethod](action.payload, state)
+        if (ActionID === ID && (newSyncActions as any)[actionMethod]) {
+          return (Actions as any)[actionMethod](action.payload, state)
         }
         return state
         /* tslint:enable */
