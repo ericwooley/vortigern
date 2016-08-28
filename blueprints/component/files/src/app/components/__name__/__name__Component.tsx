@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Link } from 'react-router'
-export interface IHeaderProps {
+export interface I<%= pascalEntityName %>Props {
 
 }
-export default function Header (props: IHeaderProps) {
-  const s = require('./style.css')
+export default function <%= pascalEntityName %> (props: I<%= pascalEntityName %>Props) {
+  const s = require('./<%= camelEntityName %>Component.css')
   return (
       <nav className={s.nav}>
         <ul>
@@ -17,4 +17,4 @@ export default function Header (props: IHeaderProps) {
     )
 }
 
-export { Header }
+export {<%= pascalEntityName %> }

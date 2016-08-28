@@ -34,7 +34,7 @@ const actions = {
 }
 
 const asyncActions = {
-  getStars: (payload: void, syncActions?: typeof actions) => {
+  getStars: (payload?: void, syncActions?: typeof actions) => {
       syncActions.setFetching(true)
       return fetch('https://api.github.com/repos/barbar/vortigern')
         .then(res => {
