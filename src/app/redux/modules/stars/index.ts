@@ -36,31 +36,33 @@ const actions = {
         message: error.message,
         error: true,
       })
-  },
-  getStars: (payload?: void, dispatch?: Function) => {
-      dispatch(actions.setFetching(true))
+  }
+}
+
+const asyncActions = {
+  getStars: (payload?: void, actionCreators?: typeof actions) => {
+    return (dispatch: Function) => {
+      dispatch(actionCreators.setFetching(true))
       return fetch('https://api.github.com/repos/barbar/vortigern')
         .then(res => {
           if (res.ok) {
             return res.json()
               .then(res => {
-                return dispatch(actions.setStars(res.stargazers_count))
+                return dispatch(actionCreators.setStars(res.stargazers_count))
               })
           } else {
             return res.json()
               .then(res => {
-                return dispatch(actions.setStarsFailure(res))
+                return dispatch(actionCreators.setStarsFailure(res))
               })
           }
         })
         .catch(err => {
-          return dispatch(actions.setStarsFailure(err))
+          return dispatch(actionCreators.setStarsFailure(err))
         })
+    }
+
   }
 }
 
-const asyncActions = {
-
-}
-
-export default makeReducer('stars', initialState, actions, asyncActions)
+export default makeReducer(initialState, actions, asyncActions)

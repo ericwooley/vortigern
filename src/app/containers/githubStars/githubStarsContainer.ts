@@ -1,6 +1,6 @@
 import Stars, {IStarsProps} from '../../components/stars/starsComponent'
 import {IState} from '../../redux/reducers.ts'
-import starsReducer from '../../redux/modules/stars'
+import {reducers} from '../../redux/reducers'
 import {compose, lifecycle} from 'recompose'
 import {connect} from 'react-redux'
 
@@ -15,7 +15,7 @@ function mapStateToProps (state: IState) {
   return { hasLoaded: state.stars.hasLoaded, count: state.stars.count, isFetching: state.stars.isFetching }
 }
 const actions = {
-  getStars: starsReducer.getStars
+  getStars: reducers.starsReducer.getStars
 }
 export default compose<IStarsProps, ISmartProps> (
   connect(mapStateToProps, (actions as any)),

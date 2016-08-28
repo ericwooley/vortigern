@@ -4,7 +4,6 @@ import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 const createLogger = require('redux-logger')
-import {setStore} from './modules/BaseReducer'
 export function configureStore(history: any, initialState?: any): Redux.Store {
 
   let middlewares: any[] = [
@@ -33,6 +32,5 @@ export function configureStore(history: any, initialState?: any): Redux.Store {
       store.replaceReducer((require('./reducers')))
     })
   }
-  setStore(store)
   return store
 }

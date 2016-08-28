@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import counterReducer from './'
+import {reducers} from '../../reducers'
 import {configureStore} from '../../../helpers/TestHelper.tsx'
 /** Module */
 describe('Counter Module', () => {
@@ -14,12 +14,12 @@ describe('Counter Module', () => {
       })
     })
     it('handles action of type INCREMENT', () => {
-      counterReducer.increment()
+      store.dispatch(reducers.counterReducer.increment())
       expect(store.getState().counter.count).to.be.eql(11)
     })
 
     it('handles action of type DECREMENT', () => {
-      counterReducer.decrement()
+      store.dispatch(reducers.counterReducer.decrement())
       expect(store.getState().counter.count).to.be.eql(9)
     })
   })

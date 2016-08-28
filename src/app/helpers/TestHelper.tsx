@@ -3,7 +3,6 @@ import * as React from 'react'
 import { mount } from 'enzyme'
 import { Provider } from 'react-redux'
 import {IState} from '../redux/reducers.ts'
-import {setStore} from '../redux/modules/BaseReducer.ts'
 import {configureStore as trueConfig} from '../redux/store.ts'
 const { browserHistory } = require('react-router')
 const fetchMock = require('fetch-mock')
@@ -16,7 +15,6 @@ function configureStore (initialState = {}) {
 /** Render Component */
 function renderComponent(ComponentClass: any, props?: any) {
   const store: Redux.Store = configureStore({})
-  setStore(store)
   return mount (
     <Provider store={store}>
       {props ? <ComponentClass {...props} /> : <ComponentClass />}
@@ -26,7 +24,6 @@ function renderComponent(ComponentClass: any, props?: any) {
 
 function renderSmartComponent(ComponentClass: any, state: any = {}, props?: any) {
   const store: Redux.Store = configureStore(state)
-  setStore(store)
   return mount (
     <Provider store={store}>
       {props ? <ComponentClass {...props} /> : <ComponentClass />}

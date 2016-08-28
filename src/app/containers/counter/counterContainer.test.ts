@@ -7,7 +7,7 @@ import * as Enzyme from 'enzyme'
 /** Mock App. State */
 const props: IState = {
   counter: {
-   count: 10
+    count: 10
   }
 }
 

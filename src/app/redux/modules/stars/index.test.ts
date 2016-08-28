@@ -1,6 +1,6 @@
 
 import { expect } from 'chai'
-import starsReducer from './'
+import {reducers} from '../../reducers'
 import {stateFromStore, fetchMock, configureStore} from '../../../helpers/TestHelper.tsx'
 import githubMock from '../../../mocks/githubData'
 /** Module */
@@ -14,12 +14,12 @@ describe('Stars Module', () => {
       })
     })
     it('will set fetching to true', () => {
-      starsReducer.setFetching(true)
+      store.dispatch(reducers.starsReducer.setFetching(true))
       expect(stateFromStore(store).stars.isFetching).to.be.eql(true)
     })
 
     it('will set fetching to false', () => {
-      starsReducer.setFetching(false)
+      store.dispatch(reducers.starsReducer.setFetching(false))
       expect(stateFromStore(store).stars.isFetching).to.be.eql(false)
     })
   })
@@ -36,7 +36,7 @@ describe('Stars Module', () => {
 
       fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.succuess)
 
-      const promise = store.dispatch(starsReducer.getStars(null))
+      const promise = store.dispatch(reducers.starsReducer.getStars(null))
       expect(stateFromStore(store).stars.isFetching).to.eql(true)
 
       promise.then(() => {
@@ -49,7 +49,7 @@ describe('Stars Module', () => {
     /** 400 */
     it('dispatches Failure on failed requests', (done) => {
       fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.failure)
-      const promise = store.dispatch(starsReducer.getStars(null))
+      const promise = store.dispatch(reducers.starsReducer.getStars(null))
       expect(stateFromStore(store).stars.isFetching).to.eql(true)
       promise.then(() => {
         expect(stateFromStore(store).stars.isFetching).to.eql(false)

@@ -2,10 +2,11 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import counterReducer, {ICounterState} from './modules/counter'
 import starsReducer, {IStarsState} from './modules/stars'
-const { reducer } = require('redux-connect')
+const reducer: {} = require('redux-connect').reducer
+
 export const reducers = {
-  counterReducer,
-  starsReducer
+  counterReducer: counterReducer('counter'),
+  starsReducer: starsReducer('stars')
 }
 
 // Add question marks so that we don't have to replicate the whole state in the mocks
@@ -15,8 +16,8 @@ export interface IState {
 }
 const rootReducer: Redux.Reducer = combineReducers({
   routing: routerReducer,
-  counter: counterReducer.reducer,
-  stars: starsReducer.reducer,
+  counter: reducers.counterReducer.reducer,
+  stars: reducers.starsReducer.reducer,
   reduxAsyncConnect: reducer
 })
 
