@@ -1,5 +1,5 @@
 import <%= pascalEntityName %>, {I<%= pascalEntityName %>PropTypes} from '../../components/<%= camelEntityName %>/<%= camelEntityName %>Component'
-import {IState} from '../../redux/reducers.ts'
+import {IState, reducers} from '../../redux/reducers.ts'
 
 // potentially import a reducer
 // import <%= camelEntityName %>Reducer from '../../redux/modules/<%= camelEntityName %>'
@@ -23,11 +23,13 @@ return {
 }
 
 const mappedActions = {
-
+  // A few examples
+  getStars: reducers.starsReducer.getStars,
+  increment: reducers.counterReducer.increment
 }
 
 export default compose<I<%= pascalEntityName %>Props, ISmartProps> (
-  connect(mapStateTopProps),
+  connect(mapStateTopProps, (mappedActions as any)), // as any because connect typings is wrong
   lifecycle({
     // Use the non arrow version so that the 'this' will have this.props, etc...
     componentWillMount: function componentWillMount (props: I<%= pascalEntityName %>Props) {

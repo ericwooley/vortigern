@@ -21,7 +21,7 @@ describe('<<%= pascalEntityName %>Container />', () => {
   let component: Enzyme.ReactWrapper<any, any>
 
   beforeEach(() => {
-    component = renderSmartComponent(<%= pascalEntityName %>, props)
+    component = renderSmartComponent(<%= pascalEntityName %>, defaultState)
   })
   // Async example from the stars smart component
   it('Renders <%= pascalEntityName %>', (done) => {

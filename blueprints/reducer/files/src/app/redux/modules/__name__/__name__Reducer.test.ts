@@ -1,6 +1,6 @@
 
 import { expect } from 'chai'
-import <%= camelEntityName %>Reducer from './<%= camelEntityName %>'
+import {reducers} from '../../reducers'
 import {stateFromStore, fetchMock, configureStore} from '../../../helpers/TestHelper.tsx'
 import githubMock from '../../../mocks/githubData'
 /** Module */
@@ -16,12 +16,12 @@ describe('<%= pascalEntityName %> Module', () => {
       })
     })
     it('will set example to true', () => {
-      <%= camelEntityName %>Reducer.setRequestSuccessExample(true)
+      store.dispatch(reducers.<%= camelEntityName %>Reducer.setRequestSuccessExample(true))
       expect(stateFromStore(store).<%= camelEntityName %>.example).to.be.eql(true)
     })
 
     it('will set example to false', () => {
-      <%= camelEntityName %>Reducer.setRequestSuccessExample(false)
+      store.dispatch(reducers.<%= camelEntityName %>Reducer.setRequestSuccessExample(false))
       expect(stateFromStore(store).<%= camelEntityName %>.example).to.be.eql(false)
     })
   })
@@ -38,7 +38,7 @@ describe('<%= pascalEntityName %> Module', () => {
 
       fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.success)
 
-      const promise = <%= camelEntityName %>Reducer.getStars(true)
+      const promise = store.dispatch(reducers.<%= camelEntityName %>Reducer.getStars(true))
       expect(stateFromStore(store).<%= camelEntityName %>.example).to.eql(true)
       promise.then(() => {
         expect(stateFromStore(store).<%= camelEntityName %>.example).to.eql(true)
@@ -49,7 +49,7 @@ describe('<%= pascalEntityName %> Module', () => {
     /** 400 */
     it('dispatches Failure on failed requests', (done) => {
       fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.failure)
-      const promise = <%= camelEntityName %>Reducer.getStars(true)
+      const promise = store.dispatch(reducers.<%= camelEntityName %>Reducer.getStars(true))
       expect(stateFromStore(store).<%= camelEntityName %>.example).to.eql(true)
       promise.then(() => {
         expect(stateFromStore(store).<%= camelEntityName %>.example).to.eql(false)

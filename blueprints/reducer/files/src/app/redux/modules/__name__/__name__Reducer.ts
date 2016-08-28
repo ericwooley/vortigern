@@ -51,4 +51,4 @@ const asyncActions = {
   }
 }
 
-export default makeReducer('<%= pascalEntityName %>', initialState, actions, asyncActions)
+export default makeReducer(initialState, actions, asyncActions)
