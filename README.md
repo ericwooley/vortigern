@@ -132,6 +132,16 @@ $ git clone https://github.com/barbar/vortigern
 $ cd vortigern
 $ npm install
 ```
+## Generating files from the blueprints
+
+You can generate components, containers, redux modules (reducer), and views automatically using the [https://github.com/SpencerCDixon/redux-cli](redux-cli). 
+
+Example:
+```bash
+$ npm install -g redux-cli@1.8.0 # released (and tested on) version as of this writing
+$ redux g reducer example
+```
+Will generate a reducer file named example, and the necessary tests boilerplate. 
 
 ## Usage
 
