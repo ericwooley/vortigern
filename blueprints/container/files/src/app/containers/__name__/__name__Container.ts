@@ -1,8 +1,11 @@
 import <%= pascalEntityName %>, {I<%= pascalEntityName %>Props} from '../../components/<%= camelEntityName %>/<%= camelEntityName %>Component'
 import {IState} from '../../redux/reducers.ts'
-import <%= camelEntityName %>Reducer from '../../redux/modules/<%= camelEntityName %>'
+
+// potentially import a reducer
+// import <%= camelEntityName %>Reducer from '../../redux/modules/<%= camelEntityName %>'
+
 import {compose, lifecycle} from 'recompose'
-import connect from '../../helpers/connect'
+import {connect} from 'react-redux'
 
 /**
  * Recompose is a library to turn dumb stateless components into smart components.

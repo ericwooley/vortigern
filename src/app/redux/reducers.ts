@@ -7,9 +7,11 @@ export const reducers = {
   counterReducer,
   starsReducer
 }
+
+// Add question marks so that we don't have to replicate the whole state in the mocks
 export interface IState {
-  counter: ICounterState,
-  stars: IStarsState
+  counter?: ICounterState,
+  stars?: IStarsState
 }
 const rootReducer: Redux.Reducer = combineReducers({
   routing: routerReducer,

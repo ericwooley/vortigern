@@ -1,23 +1,26 @@
 import { expect } from 'chai'
-import { renderComponent } from '../../helpers/TestHelper'
-import { Counter } from './index'
+import { renderSmartComponent } from '../../helpers/TestHelper'
+import CounterContainer from './counterContainer'
+import {IState} from '../../redux/reducers'
 import * as Enzyme from 'enzyme'
 
 /** Mock App. State */
-const props: Object = {
+const props: IState = {
+  counter: {
    count: 1
+  }
 }
 
-describe('<Counter />', () => {
+describe('<CounterContainer />', () => {
 
   let component: Enzyme.ReactWrapper<any, any>
 
   beforeEach(() => {
-    component = renderComponent(Counter, props)
+    component = renderSmartComponent(CounterContainer, props)
   })
 
   it('Renders with correct style', () => {
-    const s = require('./style.css')
+    const s = require('./counterComponent.css')
     expect(component.find(s.counter)).to.exist
   })
 
@@ -30,7 +33,7 @@ describe('<Counter />', () => {
   })
 
   it('Renders counter value', () => {
-    expect(component.find('p').text()).to.eql('0')
+    expect(component.find('p').text()).to.eql('1')
   })
 
   it('Calls the increment', () => {

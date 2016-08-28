@@ -19,6 +19,5 @@ describe('<GithubStars />', () => {
       expect(component.find('p').text()).to.equal(`${githubMock.succuess.body.stargazers_count}`)
       done()
     }, 20)
-
   })
 })

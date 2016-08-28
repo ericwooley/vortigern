@@ -17,7 +17,13 @@ const defaultState: Object = {
   },
 }
 
-describe('<<%= pascalEntityName %> />', () => {
+describe('<<%= pascalEntityName %>Container />', () => {
+  let component: Enzyme.ReactWrapper<any, any>
+
+  beforeEach(() => {
+    component = renderSmartComponent(<%= pascalEntityName %>, props)
+  })
+  // Async example from the stars smart component
   it('Renders <%= pascalEntityName %>', (done) => {
     fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.succuess)
     const component = renderSmartComponent(<%= pascalEntityName %>, defaultState)
@@ -28,6 +34,17 @@ describe('<<%= pascalEntityName %> />', () => {
       expect(component.find('p').text()).to.equal(`${githubMock.succuess.body.stargazers_count}`)
       done()
     }, 20)
+  })
+  // Sync examples from the counter component
+   it('Calls the increment', () => {
+    expect(component.find({ name: 'incBtn' })).to.exist
+    component.find({ name: 'incBtn' }).simulate('click')
+    expect(component.find('p').text()).to.eql('1')
+  })
 
+  it('Calls the decrement', () => {
+    expect(component.find({ name: 'decBtn' })).to.exist
+    component.find({ name: 'decBtn' }).simulate('click')
+    expect(component.find('p').text()).to.eql('0')
   })
 })
