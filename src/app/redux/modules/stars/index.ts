@@ -36,10 +36,7 @@ const actions = {
         message: error.message,
         error: true,
       })
-  }
-}
-
-const asyncActions = {
+  },
   getStars: (payload?: void, dispatch?: Function) => {
       dispatch(actions.setFetching(true))
       return fetch('https://api.github.com/repos/barbar/vortigern')
@@ -60,6 +57,10 @@ const asyncActions = {
           return dispatch(actions.setStarsFailure(err))
         })
   }
+}
+
+const asyncActions = {
+
 }
 
 export default makeReducer('stars', initialState, actions, asyncActions)

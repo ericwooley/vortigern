@@ -31,22 +31,22 @@ export default function makeReducer
       }
     })
 
-    if (AsyncActions) {
-      // async actions have dispatch and the payload injected into them.
-      Object.keys(AsyncActions).forEach((key) => {
-        if ((Actions as any)[key]) {
-          throw new Error('You cannot have a Action and Async Action with the same name: ' + key)
-        }
-        (newAsyncActions as any)[key] = (payload: any) => {
-          if (!store) {
-            throw new Error('No store has been set')
-          }
-          return (dispatch: Function) => {
-            return (AsyncActions as any)[key](payload, dispatch)
-          }
-        }
-      })
-    }
+    // if (AsyncActions) {
+    //   // async actions have dispatch and the payload injected into them.
+    //   Object.keys(AsyncActions).forEach((key) => {
+    //     if ((Actions as any)[key]) {
+    //       throw new Error('You cannot have a Action and Async Action with the same name: ' + key)
+    //     }
+    //     (newAsyncActions as any)[key] = (payload: any) => {
+    //       if (!store) {
+    //         throw new Error('No store has been set')
+    //       }
+    //       return (dispatch: Function) => {
+    //         return (AsyncActions as any)[key](payload, dispatch)
+    //       }
+    //     }
+    //   })
+    // }
     const baseReducer = {
       reducer: (state: ISubState, action: IAction<any>) => {
         state = state || defaultState
