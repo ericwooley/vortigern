@@ -2,14 +2,19 @@ import makeReducer from '../BaseReducer'
 
 /** Type Definitions */
 export interface IStarsState {
-  isFetching?: boolean
-  count?: number
-  error?: boolean
-  message?: any
+  isFetching: boolean
+  count: number
+  error: boolean
+  message: string,
+  hasLoaded: boolean
 }
 
 /** Initial State */
 const initialState: IStarsState = {
+  count: -1,
+  error: false,
+  message: '',
+  hasLoaded: false,
   isFetching: false,
 }
 const actions = {
@@ -27,6 +32,7 @@ const actions = {
   setStarsFailure: (error: Error, state?: IStarsState): IStarsState  => {
     return Object.assign({}, state, {
         isFetching: false,
+        hasLoaded: true,
         message: error.message,
         error: true,
       })

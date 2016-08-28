@@ -16,7 +16,7 @@ describe('<GithubStars />', () => {
     fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.succuess)
     const component = renderSmartComponent(GithubStars, defaultState)
     setTimeout(() => {
-      expect(component.find('div').text()).to.equal(`${githubMock.succuess.body.stargazers_count}`)
+      expect(component.find('p').text()).to.equal(`${githubMock.succuess.body.stargazers_count}`)
       done()
     }, 20)
 

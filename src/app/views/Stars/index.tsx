@@ -8,7 +8,7 @@ interface IProps {
 export default class Stars extends React.Component<IProps, {}> {
   public render() {
     return(
-      <GithubStars />
+      <GithubStars header={'This is not the default header'} />
     )
   }
 }

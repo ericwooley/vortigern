@@ -1,29 +1,28 @@
-import * as React from 'react'
+import <%= pascalEntityName %>, {I<%= pascalEntityName %>Props} from '../../components/<%= camelEntityName %>/<%= camelEntityName %>Component'
 import {IState} from '../../redux/reducers.ts'
-import starsReducer, {IStarsState} from '../../redux/modules/stars'
-const { connect } = require('react-redux')
-const { asyncConnect } = require('redux-connect')
+import <%= camelEntityName %>Reducer from '../../redux/modules/<%= camelEntityName %>'
+import {compose, lifecycle} from 'recompose'
+import connect from '../../helpers/connect'
 
-interface IProps {
-  stars: IStarsState
+/**
+ * Recompose is a library to turn dumb stateless components into smart components.
+ */
+
+// These will be the props for the exported React Class
+interface ISmartProps {
+  // header?: string // This is an example, using this would look like <Example header='Optional String' />
 }
 
-@asyncConnect([{
-  promise: starsReducer.getStars,
-}])
-@connect(
-  (state: IState) => ({ stars: state.stars })
-)
-class Stars extends React.Component<IProps, {}> {
-  public render() {
-    const { stars } = this.props
-
-    return(
-      <div>
-        { stars.isFetching ? 'Fetching Stars' : stars.count }
-      </div>
-    )
-  }
-}
-
-export { Stars }
+export default compose<I<%= pascalEntityName %>Props, ISmartProps> (
+  connect((state: IState): I<%= pascalEntityName %>Props => {
+    return {
+      // These will be mapped as props
+     }
+  }),
+  lifecycle({
+    // Use the non arrow version so that the 'this' will have this.props, etc...
+    componentWillMount: function componentWillMount (props: I<%= pascalEntityName %>Props) {
+      // Add your lifecycle login here.
+    }
+  })
+)(<%= pascalEntityName %>)

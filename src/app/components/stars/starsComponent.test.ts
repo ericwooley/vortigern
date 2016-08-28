@@ -13,11 +13,13 @@ describe('<Stars />', () => {
   const component = renderComponent(Stars, props)
 
   it('Renders with correct style', () => {
-    const s = require('./starsComponent.css')
-    expect(component.find(s.stars)).to.exist
+    expect(component).to.exist
   })
-
-  it('Renders header', () => {
-    expect(component.find('div').text()).to.eql('61')
+  it('Renders the h1', () => {
+    expect(component.find('h1').text()).to.eql('Default header')
+  })
+  it('Renders count', () => {
+    const s = require('./starsComponent.css')
+    expect(component.find(`.${s.count}`).text()).to.eql('61')
   })
 })
