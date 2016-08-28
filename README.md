@@ -143,6 +143,10 @@ $ redux g reducer example
 ```
 Will generate a reducer file named example, and the necessary tests boilerplate. 
 
+##
+Reducers have been setup to automatically dispatch the action with the type. This removes the need for any const strings.
+See the current reducers for an example, or use the reducer blueprint.
+
 ## Usage
 
 All commands defaults to development environment. You can set `NODE_ENV` to `production` or use the shortcuts below.
