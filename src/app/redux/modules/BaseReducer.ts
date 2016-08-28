@@ -20,15 +20,19 @@ export default function makeReducer
 
     const newSyncActions: T & IReducer = Object.assign({}, Actions)
     const newAsyncActions: V = Object.assign({}, AsyncActions)
+
+    // Actions are now functions that auto return types
     Object.keys(Actions).forEach((key) => {
       ((newSyncActions as any)[key]) = (payload: any) => {
         if (!store) {
           throw new Error('No store has been set')
         }
-        return store.dispatch({ type: `${ID}/${key}`, payload})
+        return { type: `${ID}/${key}`, payload}
       }
     })
+
     if (AsyncActions) {
+      // async actions have dispatch and the payload injected into them.
       Object.keys(AsyncActions).forEach((key) => {
         if ((Actions as any)[key]) {
           throw new Error('You cannot have a Action and Async Action with the same name: ' + key)
@@ -37,9 +41,9 @@ export default function makeReducer
           if (!store) {
             throw new Error('No store has been set')
           }
-          return store.dispatch((dispatch: Function) => {
-            return (AsyncActions as any)[key](payload, newSyncActions)
-          })
+          return (dispatch: Function) => {
+            return (AsyncActions as any)[key](payload, dispatch)
+          }
         }
       })
     }

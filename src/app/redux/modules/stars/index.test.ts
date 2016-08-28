@@ -36,7 +36,7 @@ describe('Stars Module', () => {
 
       fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.succuess)
 
-      const promise = starsReducer.getStars(null)
+      const promise = store.dispatch(starsReducer.getStars(null))
       expect(stateFromStore(store).stars.isFetching).to.eql(true)
 
       promise.then(() => {
@@ -49,7 +49,7 @@ describe('Stars Module', () => {
     /** 400 */
     it('dispatches Failure on failed requests', (done) => {
       fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.failure)
-      const promise = starsReducer.getStars(null)
+      const promise = store.dispatch(starsReducer.getStars(null))
       expect(stateFromStore(store).stars.isFetching).to.eql(true)
       promise.then(() => {
         expect(stateFromStore(store).stars.isFetching).to.eql(false)

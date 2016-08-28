@@ -1,9 +1,5 @@
-import Counter, {ICounterProps} from '../../components/counter/counterComponent'
-import {IState} from '../../redux/reducers.ts'
-
-// potentially import a reducer
-// import counterReducer from '../../redux/modules/counter'
-
+import Counter, {ICounterPropTypes, ICounterCallbacks, ICounterProps} from '../../components/counter/counterComponent'
+import {reducers, IState} from '../../redux/reducers.ts'
 import {compose, lifecycle} from 'recompose'
 import {connect} from 'react-redux'
 
@@ -16,12 +12,18 @@ interface ISmartProps {
   // header?: string // This is an example, using this would look like <Example header='Optional String' />
 }
 
-export default compose<ICounterProps, ISmartProps> (
-  connect((state: IState): ICounterProps => {
-    return {
-      count: state.counter.count
-     }
-  }),
+function mapStateToProps (state: IState): ICounterProps {
+  return {
+    count: state.counter.count
+  }
+}
+
+const actions: ICounterCallbacks = {
+  increment: reducers.counterReducer.increment,
+  decrement: reducers.counterReducer.decrement
+}
+export default compose<ICounterPropTypes, ISmartProps> (
+  connect(mapStateToProps, (actions as any)), // as any because connect typings is wrong
   lifecycle({
     // Use the non arrow version so that the 'this' will have this.props, etc...
     componentWillMount: function componentWillMount (props: ICounterProps) {

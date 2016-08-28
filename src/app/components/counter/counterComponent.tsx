@@ -2,12 +2,18 @@ import * as React from 'react'
 
 // This is often useful, delete if you don't need it
 // import { Link } from 'react-router'
-import { reducers } from '../../redux/reducers.ts'
+
 export interface ICounterProps {
   count: number
 }
 
-export default function Counter (props: ICounterProps) {
+export interface ICounterCallbacks {
+  increment?: Function,
+  decrement?: Function
+}
+
+export type ICounterPropTypes = ICounterProps & ICounterCallbacks
+export default function Counter (props: ICounterPropTypes) {
   const {count} = props
   const s = require('./counterComponent.css')
   return (
@@ -15,12 +21,12 @@ export default function Counter (props: ICounterProps) {
       <h4>Counter Example</h4>
       <button
         name="incBtn"
-        onClick={reducers.counterReducer.increment}>
+        onClick={props.increment}>
         INCREMENT
       </button>
       <button
         name="decBtn"
-        onClick={reducers.counterReducer.decrement}
+        onClick={props.decrement}
         disabled={count <= 0}>
         DECREMENT
       </button>

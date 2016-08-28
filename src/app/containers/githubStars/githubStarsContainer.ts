@@ -11,15 +11,19 @@ interface ISmartProps {
   header?: string
 }
 
+function mapStateToProps (state: IState) {
+  return { hasLoaded: state.stars.hasLoaded, count: state.stars.count, isFetching: state.stars.isFetching }
+}
+const actions = {
+  getStars: starsReducer.getStars
+}
 export default compose<IStarsProps, ISmartProps> (
-  connect((state: IState): IStarsProps => {
-    return { hasLoaded: state.stars.hasLoaded, count: state.stars.count, isFetching: state.stars.isFetching }
-  }),
+  connect(mapStateToProps, (actions as any)),
   lifecycle({
     // Use the non arrow version so that the 'this' will have this.props, etc...
     componentWillMount: function componentWillMount (props: IStarsProps) {
       if (!this.props.hasLoaded) {
-        starsReducer.getStars()
+        this.props.getStars()
       }
     }
   })

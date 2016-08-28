@@ -40,24 +40,24 @@ const actions = {
 }
 
 const asyncActions = {
-  getStars: (payload?: void, syncActions?: typeof actions) => {
-      syncActions.setFetching(true)
+  getStars: (payload?: void, dispatch?: Function) => {
+      dispatch(actions.setFetching(true))
       return fetch('https://api.github.com/repos/barbar/vortigern')
         .then(res => {
           if (res.ok) {
             return res.json()
               .then(res => {
-                return syncActions.setStars(res.stargazers_count)
+                return dispatch(actions.setStars(res.stargazers_count))
               })
           } else {
             return res.json()
               .then(res => {
-                return syncActions.setStarsFailure(res)
+                return dispatch(actions.setStarsFailure(res))
               })
           }
         })
         .catch(err => {
-          return syncActions.setStarsFailure(err)
+          return dispatch(actions.setStarsFailure(err))
         })
   }
 }

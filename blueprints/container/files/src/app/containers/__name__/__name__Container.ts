@@ -1,4 +1,4 @@
-import <%= pascalEntityName %>, {I<%= pascalEntityName %>Props} from '../../components/<%= camelEntityName %>/<%= camelEntityName %>Component'
+import <%= pascalEntityName %>, {I<%= pascalEntityName %>PropTypes} from '../../components/<%= camelEntityName %>/<%= camelEntityName %>Component'
 import {IState} from '../../redux/reducers.ts'
 
 // potentially import a reducer
@@ -16,12 +16,18 @@ interface ISmartProps {
   // header?: string // This is an example, using this would look like <Example header='Optional String' />
 }
 
-export default compose<I<%= pascalEntityName %>Props, ISmartProps> (
-  connect((state: IState): I<%= pascalEntityName %>Props => {
-    return {
+function mapStateTopProps (state: IState): I<%= pascalEntityName %>Props {
+return {
       // These will be mapped as props
      }
-  }),
+}
+
+const mappedActions = {
+
+}
+
+export default compose<I<%= pascalEntityName %>Props, ISmartProps> (
+  connect(mapStateTopProps),
   lifecycle({
     // Use the non arrow version so that the 'this' will have this.props, etc...
     componentWillMount: function componentWillMount (props: I<%= pascalEntityName %>Props) {

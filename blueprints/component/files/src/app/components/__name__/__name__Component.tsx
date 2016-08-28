@@ -7,6 +7,12 @@ import * as React from 'react'
 export interface I<%= pascalEntityName %>Props {
 
 }
+
+export interface I<%= pascalEntityName %>Callbacks {
+
+}
+
+export type I<%= pascalEntityName %>PropTypes = I<%= pascalEntityName %>Props & I<%= pascalEntityName %>Callbacks
 export default function <%= pascalEntityName %> (props: I<%= pascalEntityName %>Props) {
   const s = require('./<%= camelEntityName %>Component.css')
   return (
