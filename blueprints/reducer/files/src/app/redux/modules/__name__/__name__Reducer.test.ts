@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import <%= camelEntityName %>Reducer from './<%= camelEntityName %>'
 import {stateFromStore, fetchMock, configureStore} from '../../../helpers/TestHelper.tsx'
-
+import githubMock from '../../../mocks/githubData'
 /** Module */
 describe('<%= pascalEntityName %> Module', () => {
   let store: Redux.Store
@@ -36,12 +36,7 @@ describe('<%= pascalEntityName %> Module', () => {
     /** 200 */
     it('dispatches Request and Success Actions on OK requests', (done) => {
 
-      fetchMock.mock('https://api.github.com/repos/barbar/vortigern', {
-        status: 200,
-        body: {
-          stargazers_count: 999,
-        },
-      })
+      fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.success)
 
       const promise = <%= camelEntityName %>Reducer.getStars(true)
       expect(stateFromStore(store).<%= camelEntityName %>.example).to.eql(true)
@@ -53,12 +48,7 @@ describe('<%= pascalEntityName %> Module', () => {
     })
     /** 400 */
     it('dispatches Failure on failed requests', (done) => {
-      fetchMock.mock('https://api.github.com/repos/barbar/vortigern', {
-        status: 400,
-        body: {
-          message: 'ERROR :-O',
-        },
-      })
+      fetchMock.mock('https://api.github.com/repos/barbar/vortigern', githubMock.failure)
       const promise = <%= camelEntityName %>Reducer.getStars(true)
       expect(stateFromStore(store).<%= camelEntityName %>.example).to.eql(true)
       promise.then(() => {

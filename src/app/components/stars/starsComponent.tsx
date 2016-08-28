@@ -5,11 +5,10 @@ export interface IStarsProps {
   isFetching: boolean
 }
 export default function Stars (props: IStarsProps) {
-  const { count, isFetching } = props
   const s = require('./starsComponent.css')
   return(
       <div className={s.stars}>
-        { isFetching ? 'Fetching Stars' : count }
+        {props.isFetching ? 'Fetching Stars' : props.count}
       </div>
     )
 }

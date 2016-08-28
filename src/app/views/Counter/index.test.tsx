@@ -4,8 +4,8 @@ import { Counter } from './index'
 import * as Enzyme from 'enzyme'
 
 /** Mock App. State */
-const state: Object = {
-  counter: { count: 1 },
+const props: Object = {
+   count: 1
 }
 
 describe('<Counter />', () => {
@@ -13,7 +13,7 @@ describe('<Counter />', () => {
   let component: Enzyme.ReactWrapper<any, any>
 
   beforeEach(() => {
-    component = renderComponent(Counter, state)
+    component = renderComponent(Counter, props)
   })
 
   it('Renders with correct style', () => {
@@ -30,13 +30,13 @@ describe('<Counter />', () => {
   })
 
   it('Renders counter value', () => {
-    expect(component.find('p').text()).to.eql('1')
+    expect(component.find('p').text()).to.eql('0')
   })
 
   it('Calls the increment', () => {
     expect(component.find({ name: 'incBtn' })).to.exist
     component.find({ name: 'incBtn' }).simulate('click')
-    expect(component.find('p').text()).to.eql('2')
+    expect(component.find('p').text()).to.eql('1')
   })
 
   it('Calls the decrement', () => {

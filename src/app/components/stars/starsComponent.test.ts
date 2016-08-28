@@ -2,17 +2,15 @@ import { expect } from 'chai'
 import { renderComponent } from '../../helpers/TestHelper'
 import Stars from './starsComponent.tsx'
 
-/** Mock App. State */
-const state: Object = {
-  stars: {
-    count: 61,
-    isFetching: false,
-  },
+/** Mock App. Props */
+const props: Object = {
+  count: 61,
+  isFetching: false
 }
 
-describe('<Counter />', () => {
+describe('<Stars />', () => {
 
-  const component = renderComponent(Stars, state)
+  const component = renderComponent(Stars, props)
 
   it('Renders with correct style', () => {
     const s = require('./starsComponent.css')
